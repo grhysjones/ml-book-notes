@@ -35,3 +35,19 @@
     10. deploy
     11. monitor and maintain
 </details>
+
+
+<details>
+<summary><font size=5>Chapter 4: Training Models</font></summary>
+- Linear regression is just simply a weighted sum of input features plus a bias
+- To implement gradient descent, you compute the gradient of the loss function with regard to each model parameter (input feature), which is the same as computing the partial derivatives wrt each parameter
+- With SGD, the result of the gradient of the loss function will bounce up and down because we’re only using a small batch of instances at each step
+- You can using training curves to understand model performance when training on different sized subsets of the training set, to see how much of a performance increase you get from adding new data
+- High-bias model will typically underfit the data. High-variance model will typically overfit the data. Increasing model complexity will typically increase variance but reduce bias
+- Regularisation
+    - When you combine both ridge and lasso regularisation, you get ElasticNet regularisation. ElasticNet includes a mix ratio r which controls the amount of ridge and lasso that’s occurring. When r = 0 then you have pure ridge, and when r = 1 you have pure lasso.
+        - ElasticNet is better than Lasso which may behave erratically when your training data is wider than is it tall, or when several features are strongly correlated
+    - An alternative approach to regularising iterative models is to use early stopping. You stop the training as soon as the validation set has reached a minimum
+- A softmax regression can be used for a multiclass problem. You calculate the probability score for each class using a logistic regression. Then with the output probability scores, you run this through a softmax activation function, which computes the exponential of each score, and then normalises them. The predicted class is the one with the highest value
+
+</details>
