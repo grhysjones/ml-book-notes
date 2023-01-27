@@ -51,3 +51,27 @@
     - An alternative approach to regularising iterative models is to use early stopping. You stop the training as soon as the validation set has reached a minimum
 - A softmax regression can be used for a multiclass problem. You calculate the probability score for each class using a logistic regression. Then with the output probability scores, you run this through a softmax activation function, which computes the exponential of each score, and then normalises them. The predicted class is the one with the highest value
 </details>
+
+
+<details>
+<summary><font size=5>Chapter 5: SVMs</font></summary>
+
+- You can think of SVMs as fitting the widest street possible between two support vectors, to classify the dataset on
+- In sklearn, you can use hyperparameter C to regularise the SVM model, which controls the number of margin violations that occur
+- If your dataset is linear, you can use a linear kernel. But most datasets are more complex than that. You can use non-linear kernels to increase the dimensionality of your dataset
+- Scaling your data is important when using SVMs, because a SVM will be able to fit scaled data more easily
+- When building an SVM, you should always start by trying a linear kernel. If that doesn’t work then we can try and Gaussian RBF kernel
+- SVMs can also be used for regression. In this instance, you flip the objective. So instead of choosing the widest margin that separates the classes, you now try and choose the margin that fits the most instances on the street, without including margin violations
+</details>
+
+
+<details>
+<summary><font size=5>Chapter 6: Decision Trees</font></summary>
+
+- Decision trees don’t require any data preparation such as feature scaling or centering
+- Sklearn uses CART to train the algorithm, which only produces binary leaves
+- You can regularise a decision tree by restricting it’s freedom in training by setting the max depth, max samples in a node needed for splitting, max samples in a lead node, max number of leaf nodes, or max features used for splitting
+- Challenges with decision trees
+    - They like orthogonal decision boundaries. If you rotate your dataset, you may find the decision boundary becomes convoluted. Using PCA to reduce dimensionality can help with this
+    - They’re sensitive to small variations in the training data
+</details>
