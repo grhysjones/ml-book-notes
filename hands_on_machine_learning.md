@@ -75,3 +75,40 @@
     - They like orthogonal decision boundaries. If you rotate your dataset, you may find the decision boundary becomes convoluted. Using PCA to reduce dimensionality can help with this
     - They’re sensitive to small variations in the training data
 </details>
+
+
+<details>
+<summary><font size=5>Chapter 7: Ensemble Learning & Random Forests</font></summary>
+
+- Ensemble algorithms take a combined prediction from multiple trees
+- Even if a single model is a weak learner, a combined ensemble may be more predictive than the best performing model in the ensemble
+- Bootstrapping is random sampling with replacement from a dataset. Bagging = bootstrap aggregating, ie performing it many times and training an estimator for each bootstrapped dataset
+    - When sampling is performed without replacement it’s called pasting
+- One way to get a diverse ensemble is to train very different algorithms on the data to create a diverse set of models. Another approach is to train the same model on different random subsets of the data
+- Predictors can be trained in parallel on different CPU cores, or on different servers
+- Bagging
+    - In Sklearn, the BaggingClassifier runs multiple decision tree classifiers, using sampling with replacement
+    - Out-of-bag evaluation - this is where the classifier can be evaluated on the training instances that weren’t sampled, because we were using sampling with replacement, this is typically about a third of the dataset. So no separate validation set is needed. Thus you can average the OOB scores for each predictor to get the overall model performance
+    - You can also choose to train on a random subset of features each time, useful when training on high dimensionality data
+- Random Forests
+    - A random forest classifier is the same as a bagging classifier that’s passed a decision tree classifier! But it introduces some extra randomness
+        - Rather than always searching for the best parameter on which to split a node, it searches for the best amongst a subset of features. This results in greater tree diversity, which trades a higher bias for a lower variance (ie it reduces overfitting)
+    - A great quality of RFs is that they make it easy to understand feature importance, by looking at nodes that use a feature, and seeing by how much it reduces impurity on average
+    - RFs can be regularised by tuning the number of estimators
+- Boosting
+    - The general idea is to make a strong learner from many weak learners, by training predictors sequentially, each trying to correct its predecessor
+    - The drawback is that predictors cannot be trained in parallel, so training takes much longer
+    - Adaboost
+        - Corrects its predecessors by focusing on instances that were underfit, meaning new predictors focus on harder cases
+        - It trains a decision tree, then makes predictions on the training set, and increases the relative weight (boosting) of the misclassified instances. The second classifier then trains on the updated weights
+        - The learning rate is used to control how much the misclassified instances are boosted. This makes is similar to iteratively performing gradient descent
+    - Gradient Boosting (GBRT = gradient boosted regression trees)
+        - Works similarly to Adaboost, but instead of training on the updated weighted instances, the successor tries to fit the new model to the residual errors from the previous model
+        - The learning rate here is used to scale the contribution of each tree. With a low value, you’ll need more trees to fit the data, but the predictions will likely generalise better. This regularisation technique is called shrinkage
+        - You can use early stopping to find the optimal number of trees
+    - XGBoost (Extreme Gradient Boosting)
+        - XGBoost automatically takes care of early stopping for you
+    - Stacking
+        - This is a method of using a subsequent model to learn the best combination of predictions from an ensemble, rather than just taking a hard rule like the mean. This could also be called a meta-learner
+        - You’d make predictions from the ensemble on a hold-out set of the training data, and then take those predictions and known labels to train a new model (like a linear regressor, or another random forest)
+</details>
