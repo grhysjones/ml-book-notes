@@ -112,3 +112,29 @@
         - This is a method of using a subsequent model to learn the best combination of predictions from an ensemble, rather than just taking a hard rule like the mean. This could also be called a meta-learner
         - You’d make predictions from the ensemble on a hold-out set of the training data, and then take those predictions and known labels to train a new model (like a linear regressor, or another random forest)
 </details>
+
+
+<details>
+<summary><font size=5>Chapter 8: Dimensionality Reduction</font></summary>
+
+- The curse of dimensionality
+    - Typically when you have more features than instances, so you have a very high dimensional dataset
+    - As you increase dimensions, the distance between 2 points becomes much greater, so much so that each instance looks very different to another instance and it becomes difficult to learn patterns between them
+    - You may want to increase the size of your training set, but the number of training instances tends to grow exponentially with the number of features
+    - Models will quickly overfit the data if there are too many features
+- Projection. Take a swiss roll - rather than squashing the data onto one plane, you want to unroll the swill roll onto a new 2D plane to maintain it’s composition
+- Manifold Learning - relies on the hypothesis that most real-world high dimensional datasets lie close to a lower-dimensional manifold. So you need to find what that manifold is.
+- Reducing the dimensions of your dataset will generally increase the speed of learning, but may not always result in better performance. It all depends on the dataset
+- Principal Component Analysis (PCA)
+    - First identifies the hyperplane (flat surface) that lies closest to the data and then projects the data onto it
+    - You will typically want to choose a plane that maximises the datasets variance (think of projecting a 2D dataset onto a line and maintaining the width of the distribution). Or you’ll want to minimise the mse between the original dataset and the projection
+    - PCA first identifies the axis that gives the largest amount of variance on the training set. And then chooses the axis that’s orthogonal to this to maintain the next largest amount of variance. The number of axes will be equivalent to the number of dimensions
+    - You can then reduce down the size of the dataset to d dimensions, but choosing the first d principle components, and projecting the data onto that hyperplane
+    - You typically choose the number of dimensions such that you add up to a sufficiently large proportion of the datasets variance (ie 95%)
+    - If you perturb the training set a little, then you might get principle components pointing in different directions, but you’d still get a plane that resembles something similar
+    - You can also do an inverse transform of the PCA dataset to decompress the data, although it would be identical anymore
+    - Incremental PCA allows you to do mini-batch training for PCA, rather than having to fit the entire dataset into memory
+    - Kernel PCA performs complex non-linear projections in the original space (rather than linear projects in a high dimensional space). It’s useful for high complex non-linear datasets. kPCA is unsupervised, but you can include it end-to-end in a classification pipeline, and then perform a grid search on the hyperparameters
+- t-SNE (t-distributed Stochastic Neighbour Embedding)
+    - Keeps similar instances close, and dissimilar instances apart, whilst reducing dimensionality. Mainly used for visualisation
+</details>
