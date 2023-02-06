@@ -138,3 +138,24 @@
 - t-SNE (t-distributed Stochastic Neighbour Embedding)
     - Keeps similar instances close, and dissimilar instances apart, whilst reducing dimensionality. Mainly used for visualisation
 </details>
+
+
+<details>
+<summary><font size=5>Chapter 9: Unsupervised Learning</font></summary>
+
+- Lots of potential here to learn from unlabelled data
+- K-Means Clustering
+    - Could be used for consumer segmentations, anomaly/fraud detections, or to search for similar images to a reference
+    - In k-means, you want to cluster the data into K categories, which they will be labelled with classes. Or alternatively you could return the distance of each instance to the centroid of the clusters, to give a probability of each class
+    - You first randomly initialise k centroids in the data, and then label them. Then update the clusters and relabel them iteratively until you converge on a solution
+    - Because of the random initialisation thought, you might not always converge on the global minimum. So you typically run the algorithm multiple times, measuring the “inertia” which is the mse to each instances closest centroid.
+    - In practice, k-means is more intelligent under the hood, and selects centroids that are far away from each other to reduce the number of times the algorithm needs to run to find an optimal solution
+    - Defining the number of clusters is difficult though. Typically you use the mean silhouette coefficient of all the instances. The silhouette coefficient is equal to:
+        - $(b-a)/max(a, b)$, where a is the mean distance to other instances in the same cluster, and b is the mean nearest cluster distance
+        - It varies between -1 and 1. An instance silhouette coefficient of 1 means it’s well within the cluster, 0 means it’s on the border, and -1 means it’s probably misclassified
+        - A silhouette diagram plots the sorted silhouette coefficients for each instance by cluster. You get a knife shape for each cluster. You can use this diagram to check the size of clusters, and may want to choose K even when the mean score is lower
+    - Scaling the data is very important before K-Means, otherwise clusters can be very stretched and unpredictable
+    - K-means is fast and scalable, but not always strong, particularly for non-spheroidal clusters. Gaussian Mixture Models are better in these cases
+    - Clustering can be used for dimensionality reduction and image segmentation by doing colour segmentation
+    - A K-means clustering algorithm is typically a hard clustering algorithm, ie it only gives one class to each instance
+</details>
