@@ -1,4 +1,4 @@
-# An Overview of Deep Learning Models Arcitechtures
+# An Overview of Deep Learning Model Architectures
 
 <details>
 <summary><font size=5>Faster-RCNN</font></summary>
